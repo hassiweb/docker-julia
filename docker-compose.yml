@@ -1,0 +1,23 @@
+version: "3.4"
+
+x-var: &JULIA_VERSION
+  "julia-1.3.1"
+x-var: &IMAGE_NAME
+  "hassiweb/myjulia:julia-1.3.1"
+
+services:
+  julia:
+    image: *IMAGE_NAME
+    build:
+      context: ./julia
+      args: 
+        JULIA_VERSION: *JULIA_VERSION
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./julia/:/home/jovyan/work/
+    restart: always
+    command: start-notebook.sh --NotebookApp.password='sha1:c16423ca2e57:e386abd9dd80dccafac0f2ed25776f49a49c7d9d'
+    # Password is "julia"
+      
+
